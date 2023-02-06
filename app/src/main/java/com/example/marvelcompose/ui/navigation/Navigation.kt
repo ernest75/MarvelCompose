@@ -21,9 +21,11 @@ fun Navigation() {
                 navController.navigate(NavItem.CharacterDetail.createRoute(character.id))
             })
         }
-        
+
         composable(NavItem.CharacterDetail) {
-            CharacterDetailScreen(it.findArg<Int>(NavArg.ItemId))
+            CharacterDetailScreen(
+                id = it.findArg<Int>(NavArg.ItemId),
+                onUpClick = { navController.popBackStack() })
         }
     }
 }

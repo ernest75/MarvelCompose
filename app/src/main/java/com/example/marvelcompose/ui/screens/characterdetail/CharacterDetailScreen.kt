@@ -8,10 +8,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Book
-import androidx.compose.material.icons.filled.Bookmark
-import androidx.compose.material.icons.filled.Collections
-import androidx.compose.material.icons.filled.Event
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,7 +24,7 @@ import com.example.marvelcompose.data.entities.Character
 import com.example.marvelcompose.data.entities.Reference
 
 @Composable
-fun CharacterDetailScreen(id: Int) {
+fun CharacterDetailScreen(id: Int, onUpClick: () -> Unit) {
     var characterState by remember {
         mutableStateOf<Character?>(
             null
@@ -36,20 +33,36 @@ fun CharacterDetailScreen(id: Int) {
     LaunchedEffect(Unit) {
         characterState = CharactersRepository.finCharacter(id)
     }
-    characterState?.let { CharacterDetailScreen(character = it) }
+    characterState?.let { CharacterDetailScreen(character = it, onUpClick) }
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun CharacterDetailScreen(character: Character) {
-    LazyColumn(modifier = Modifier.fillMaxWidth()) {
-        item {
-            Header(character)
+fun CharacterDetailScreen(character: Character, onUpClick: () -> Unit) {
+    Scaffold(topBar = {
+        TopAppBar(title = { Text(text = character.name) },
+            navigationIcon = {
+                IconButton(onUpClick) {
+                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back arrow")
+                }
+            }
+        )
+
+    }) { padding ->
+
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(padding)
+        ) {
+            item {
+                Header(character)
+            }
+            section(Icons.Default.Collections, "Series", character.series)
+            section(Icons.Default.Event, "Events", character.comics)
+            section(Icons.Default.Book, "Comics", character.comics)
+            section(Icons.Default.Bookmark, "Stories", character.comics)
         }
-        section(Icons.Default.Collections, "Series", character.series)
-        section(Icons.Default.Event, "Events", character.comics)
-        section(Icons.Default.Book, "Comics", character.comics)
-        section(Icons.Default.Bookmark, "Stories", character.comics)
     }
 }
 
@@ -122,6 +135,6 @@ fun CharacterDetailScreenPreview() {
         listOf(Reference("Comic 1"), Reference("Comic 2"))
     )
     MarvelApp {
-        CharacterDetailScreen(character = character)
+        CharacterDetailScreen(character = character, onUpClick = {})
     }
 }
