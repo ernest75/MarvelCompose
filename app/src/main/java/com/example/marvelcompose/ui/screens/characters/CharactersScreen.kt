@@ -8,9 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -21,11 +19,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.example.marvelcompose.MarvelApp
+import com.example.marvelcompose.R
 import com.example.marvelcompose.data.entities.Character
 import com.example.marvelcompose.data.repositories.CharactersRepository
 
@@ -35,7 +35,7 @@ fun CharactersScreen(onClick: (Character) -> Unit) {
     LaunchedEffect(Unit) {
         characterState = CharactersRepository.getCharacters()
     }
-    
+
     CharactersScreen(
         character = characterState,
         onClick = onClick
@@ -45,14 +45,21 @@ fun CharactersScreen(onClick: (Character) -> Unit) {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CharactersScreen(character: List<Character>, onClick: (Character) -> Unit) {
-    LazyVerticalGrid(
-        cells = GridCells.Adaptive(180.dp), contentPadding = PaddingValues(4.dp)
-    ) {
-        items(character) {
-            CharacterItem(
-                character = it,
-                modifier = Modifier.clickable { onClick(it)}
-            )
+    Scaffold(topBar = {
+        TopAppBar(title = { Text(text = stringResource(id = R.string.app_name)) })
+
+    }) { padding ->
+        LazyVerticalGrid(
+            cells = GridCells.Adaptive(180.dp),
+            contentPadding = PaddingValues(4.dp),
+            modifier = Modifier.padding(padding)
+        ) {
+            items(character) {
+                CharacterItem(
+                    character = it,
+                    modifier = Modifier.clickable { onClick(it) }
+                )
+            }
         }
     }
 }
