@@ -14,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.platform.UriHandler
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -39,15 +41,20 @@ fun CharacterDetailScreen(id: Int, onUpClick: () -> Unit) {
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CharacterDetailScreen(character: Character, onUpClick: () -> Unit) {
+
+
     Scaffold(topBar = {
-        TopAppBar(title = { Text(text = character.name) },
+        TopAppBar(
+            title = { Text(text = character.name) },
             navigationIcon = {
                 IconButton(onUpClick) {
                     Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back arrow")
                 }
+            },
+            actions = {
+                AppBarOverFlowMenu(urls = character.urls)
             }
         )
-
     }) { padding ->
 
         LazyColumn(
@@ -65,7 +72,6 @@ fun CharacterDetailScreen(character: Character, onUpClick: () -> Unit) {
         }
     }
 }
-
 
 fun LazyListScope.section(icon: ImageVector, title: String, listItems: List<Reference>) {
     if (listItems.isEmpty()) return
@@ -132,7 +138,8 @@ fun CharacterDetailScreenPreview() {
         listOf(Reference("Comic 1"), Reference("Comic 2")),
         listOf(Reference("Comic 1"), Reference("Comic 2")),
         listOf(Reference("Comic 1"), Reference("Comic 2")),
-        listOf(Reference("Comic 1"), Reference("Comic 2"))
+        listOf(Reference("Comic 1"), Reference("Comic 2")),
+        emptyList()
     )
     MarvelApp {
         CharacterDetailScreen(character = character, onUpClick = {})
