@@ -16,6 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -28,6 +29,7 @@ import com.example.marvelcompose.MarvelApp
 import com.example.marvelcompose.R
 import com.example.marvelcompose.data.entities.Character
 import com.example.marvelcompose.data.repositories.CharactersRepository
+import com.example.marvelcompose.ui.screens.characterdetail.AppBarOverFlowMenu
 
 @Composable
 fun CharactersScreen(onClick: (Character) -> Unit) {
@@ -80,6 +82,10 @@ fun CharacterItem(character: Character, modifier: Modifier = Modifier) {
                     .background(Color.LightGray)
                     .fillMaxWidth()
                     .aspectRatio(1f)
+            )
+            AppBarOverFlowMenu(
+                urls = character.urls,
+                modifier = modifier.padding(start = 120.dp)
             )
         }
         Text(

@@ -4,21 +4,23 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.UriHandler
 import com.example.marvelcompose.data.entities.Character
 import com.example.marvelcompose.data.entities.Url
-//Todo : Add overlflow to items in main
 @Composable
 @OptIn(ExperimentalMaterialApi::class)
 fun AppBarOverFlowMenu(
-    urls: List<Url>
+    urls: List<Url>,
+    modifier: Modifier = Modifier
 ) {
     var showMenu by remember { mutableStateOf(false) }
     val uriHandler = LocalUriHandler.current
 
-    IconButton(onClick = { showMenu = !showMenu }) {
-        Icon(imageVector = Icons.Default.MoreVert, contentDescription = "More actions")
+    IconButton(onClick = { showMenu = !showMenu }, modifier = modifier) {
+        Icon(imageVector = Icons.Default.MoreVert, contentDescription = "More actions", tint = Color.White)
         DropdownMenu(
             expanded = showMenu,
             onDismissRequest = { showMenu = false }
