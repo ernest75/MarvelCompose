@@ -14,16 +14,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalUriHandler
-import androidx.compose.ui.platform.UriHandler
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
 import com.example.marvelcompose.MarvelApp
-import com.example.marvelcompose.data.repositories.CharactersRepository
 import com.example.marvelcompose.data.entities.Character
 import com.example.marvelcompose.data.entities.Reference
+import com.example.marvelcompose.data.repositories.CharactersRepository
 
 @Composable
 fun CharacterDetailScreen(id: Int, onUpClick: () -> Unit) {
