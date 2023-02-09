@@ -38,11 +38,13 @@ fun CharacterDetailScaffold(
             )
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { shareCharacter(context, character) }) {
-                Icon(
-                    imageVector = Icons.Default.Share,
-                    contentDescription = stringResource(R.string.share_character)
-                )
+            if(character.urls.isNotEmpty()) {
+                FloatingActionButton(onClick = { shareCharacter(context, character) }) {
+                    Icon(
+                        imageVector = Icons.Default.Share,
+                        contentDescription = stringResource(R.string.share_character)
+                    )
+                }
             }
         },
         floatingActionButtonPosition = FabPosition.Center,

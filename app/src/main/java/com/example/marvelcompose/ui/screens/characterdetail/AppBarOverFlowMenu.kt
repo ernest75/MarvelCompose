@@ -16,6 +16,8 @@ fun AppBarOverFlowMenu(
     urls: List<Url>,
     modifier: Modifier = Modifier
 ) {
+    if(urls.isEmpty()) return
+
     var showMenu by remember { mutableStateOf(false) }
     val uriHandler = LocalUriHandler.current
 
