@@ -50,8 +50,8 @@ fun CharacterDetailScreen(character: Character, onUpClick: () -> Unit) {
             }
             section(Icons.Default.Collections, "Series", character.series)
             section(Icons.Default.Event, "Events", character.comics)
-            section(Icons.Default.Book, "Comics", character.comics)
-            section(Icons.Default.Bookmark, "Stories", character.comics)
+            section(Icons.Default.Book, "Comics", character.events)
+            section(Icons.Default.Bookmark, "Stories", character.stories)
         }
     }
 }
