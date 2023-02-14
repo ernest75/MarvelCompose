@@ -3,22 +3,37 @@ package com.example.marvelcompose.ui.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navigation
 import com.example.marvelcompose.ui.screens.characterdetail.CharacterDetailScreen
 import com.example.marvelcompose.ui.screens.characters.CharactersScreen
 
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
+
     NavHost(
         navController = navController,
-        startDestination = NavItem.ContentType(Feature.CHARACTERS).route
+        startDestination = Feature.CHARACTERS.route
+    ) {
+        charactersNav(navController)
+    }
+}
+
+private fun NavGraphBuilder.charactersNav(navController: NavHostController) {
+
+    navigation(
+        startDestination = NavItem.ContentType(Feature.CHARACTERS).route,
+        route = Feature.CHARACTERS.route
     ) {
         composable(NavItem.ContentType(Feature.CHARACTERS)) {
             CharactersScreen(onClick = { character ->
-                navController.navigate(NavItem.ContentDetail(Feature.CHARACTERS).createRoute(character.id))
+                navController.navigate(
+                    NavItem.ContentDetail(Feature.CHARACTERS).createRoute(character.id)
+                )
             })
         }
 
