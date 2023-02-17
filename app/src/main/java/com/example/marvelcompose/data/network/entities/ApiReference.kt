@@ -1,6 +1,6 @@
 package com.example.marvelcompose.data.network.entities
 
-data class Comic(
+data class ApiReference(
     val name: String,
     val resourceURI: String
 )

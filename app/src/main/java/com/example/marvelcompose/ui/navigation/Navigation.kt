@@ -1,5 +1,7 @@
 package com.example.marvelcompose.ui.navigation
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
@@ -8,8 +10,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
-import com.example.marvelcompose.ui.screens.characterdetail.CharacterDetailScreen
-import com.example.marvelcompose.ui.screens.characters.CharactersScreen
+import coil.annotation.ExperimentalCoilApi
+import com.example.marvelcompose.ui.screens.*
+
 
 @Composable
 fun Navigation() {
@@ -20,9 +23,12 @@ fun Navigation() {
         startDestination = Feature.CHARACTERS.route
     ) {
         charactersNav(navController)
+        comicsNav(navController)
+        eventsNav(navController)
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class, ExperimentalCoilApi::class)
 private fun NavGraphBuilder.charactersNav(navController: NavHostController) {
 
     navigation(
@@ -32,14 +38,60 @@ private fun NavGraphBuilder.charactersNav(navController: NavHostController) {
         composable(NavItem.ContentType(Feature.CHARACTERS)) {
             CharactersScreen(onClick = { character ->
                 navController.navigate(
-                    NavItem.ContentDetail(Feature.CHARACTERS).createRoute(character.id)
+                    NavItem.ContentTypeDetail(Feature.CHARACTERS).createRoute(character.id)
                 )
             })
         }
 
-        composable(NavItem.ContentDetail(Feature.CHARACTERS)) {
+        composable(NavItem.ContentTypeDetail(Feature.CHARACTERS)) {
             CharacterDetailScreen(
-                id = it.findArg<Int>(NavArg.ItemId),
+                characterId = it.findArg<Int>(NavArg.ItemId),
+                onUpClick = { navController.popBackStack() })
+        }
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class, ExperimentalCoilApi::class)
+private fun NavGraphBuilder.comicsNav(navController: NavHostController) {
+
+    navigation(
+        startDestination = NavItem.ContentType(Feature.COMICS).route,
+        route = Feature.COMICS.route
+    ) {
+        composable(NavItem.ContentType(Feature.COMICS)) {
+            ComicsScreen(onClick = { comic ->
+                navController.navigate(
+                    NavItem.ContentTypeDetail(Feature.COMICS).createRoute(comic.id)
+                )
+            })
+        }
+
+        composable(NavItem.ContentTypeDetail(Feature.COMICS)) {
+            ComicDetailScreen(
+                comicId = it.findArg<Int>(NavArg.ItemId),
+                onUpClick = { navController.popBackStack() })
+        }
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class, ExperimentalCoilApi::class)
+private fun NavGraphBuilder.eventsNav(navController: NavHostController) {
+
+    navigation(
+        startDestination = NavItem.ContentType(Feature.EVENTS).route,
+        route = Feature.EVENTS.route
+    ) {
+        composable(NavItem.ContentType(Feature.EVENTS)) {
+            EventsScreen(onClick = { event ->
+                navController.navigate(
+                    NavItem.ContentTypeDetail(Feature.EVENTS).createRoute(event.id)
+                )
+            })
+        }
+
+        composable(NavItem.ContentTypeDetail(Feature.EVENTS)) {
+            EventDetailScreen(
+                eventId = it.findArg(NavArg.ItemId),
                 onUpClick = { navController.popBackStack() })
         }
     }

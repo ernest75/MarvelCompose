@@ -10,13 +10,15 @@ sealed class NavItem(
 ) {
     class ContentType(feature: Feature) : NavItem(feature)
 
-    class ContentDetail(feature: Feature) : NavItem(feature, "detail", listOf(NavArg.ItemId)) {
+    class ContentTypeDetail(feature: Feature) :
+        NavItem(feature, "detail", listOf(NavArg.ItemId)) {
         fun createRoute(itemId: Int) = "${feature.route}/$subRoute/$itemId"
     }
 
     val route = run {
         val argValues = navArgs.map { "{${it.key}}" }
-        listOf(feature.route, subRoute)
+        listOf(feature.route)
+            .plus(subRoute)
             .plus(argValues)
             .joinToString("/")
     }

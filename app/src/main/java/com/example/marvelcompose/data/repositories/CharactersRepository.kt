@@ -1,44 +1,29 @@
 package com.example.marvelcompose.data.repositories
 
 import com.example.marvelcompose.data.entities.Character
-import com.example.marvelcompose.data.entities.Reference
-import com.example.marvelcompose.data.entities.Url
-import com.example.marvelcompose.data.network.entities.ApiCharacter
 import com.example.marvelcompose.data.network.ApiClient
-import com.example.marvelcompose.data.network.entities.asString
 
-object CharactersRepository {
+object CharactersRepository : Repository<Character>() {
 
-    suspend fun getCharacters(): List<Character> {
-        val result = ApiClient.charactersService.getCharacters(0, 100)
+    suspend fun get(): List<Character> = super.get {
+        ApiClient
+            .charactersService
+            .getCharacters(0, 100)
+            .data
+            .results
+            .map { it.asCharacter() }
+    }
 
-        return result.data.results.map {
-           it.toCharacter()
+    suspend fun find(id: Int): Character = super.find(
+        id,
+        findActionRemote = {
+            ApiClient
+                .charactersService
+                .findCharacter(id)
+                .data
+                .results
+                .first()
+                .asCharacter()
         }
-    }
-
-    suspend fun finCharacter(characterId: Int): Character {
-        val result = ApiClient.charactersService.findCharacter(characterId)
-        return result.data.results.first().toCharacter()
-
-    }
-}
-
-fun ApiCharacter.toCharacter(): Character {
-    val comics = comics.items.map { Reference(it.name) }
-    val events = events.items.map { Reference(it.name) }
-    val stories = stories.items.map { Reference(it.name) }
-    val series = series.items.map { Reference(it.name) }
-    val urls = urls.map { Url(it.type, it.url) }
-    return Character(
-        id = id,
-        name = name,
-        description = description,
-        thumbnail = thumbnail.asString(),
-        comics = comics,
-        events = events,
-        stories = stories,
-        series = series,
-        urls = urls
     )
 }

@@ -1,8 +1,8 @@
 package com.example.marvelcompose.data.network.entities
 
-data class ApiSeries(
+data class ApiReferenceList(
     val available: Int,
     val collectionURI: String,
-    val items: List<ApiComic>,
+    val items: List<ApiReference>?,
     val returned: Int
 )
