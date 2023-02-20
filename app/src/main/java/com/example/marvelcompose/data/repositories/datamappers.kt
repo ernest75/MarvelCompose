@@ -4,46 +4,60 @@ import com.example.marvelcompose.data.entities.*
 import com.example.marvelcompose.data.network.entities.*
 
 fun ApiCharacter.asCharacter(): Character = Character(
-    id,
-    name,
-    description,
-    thumbnail.asString(),
-    listOf(
+    id = id,
+    title = name,
+    description = description,
+    thumbnail = thumbnail.asString(),
+    references = listOf(
         comics.toDomain(ReferenceList.Type.COMIC),
         events.toDomain(ReferenceList.Type.EVENT),
         series.toDomain(ReferenceList.Type.SERIES),
         stories.toDomain(ReferenceList.Type.STORY)
     ),
-    urls.map { Url(it.type, it.url) }
+    urls = urls.map { Url(it.type, it.url) }
 )
 
 fun ApiEvent.asEvent(): Event = Event(
-    id,
-    title,
-    description,
-    thumbnail.asString(),
-    listOf(
+    id = id,
+    title = title,
+    description = description,
+    thumbnail = thumbnail.asString(),
+    references = listOf(
         comics.toDomain(ReferenceList.Type.COMIC),
         characters.toDomain(ReferenceList.Type.EVENT),
         series.toDomain(ReferenceList.Type.SERIES),
         stories.toDomain(ReferenceList.Type.STORY)
     ),
-    urls.map { Url(it.type, it.url) }
+    urls = urls.map { Url(it.type, it.url) }
 )
 
 fun ApiComic.asComic(): Comic = Comic(
-    id,
-    title,
-    description ?: "",
-    thumbnail.asString(),
-    format.toDomain(),
-    listOf(
+    id = id,
+    title = title,
+    description = description ?: "",
+    thumbnail = thumbnail.asString(),
+    format = format.toDomain(),
+    references = listOf(
         characters.toDomain(ReferenceList.Type.CHARACTER),
         events.toDomain(ReferenceList.Type.EVENT),
         series.toDomain(ReferenceList.Type.SERIES),
         stories.toDomain(ReferenceList.Type.STORY)
     ),
-    urls.map { Url(it.type, it.url) }
+    urls = urls.map { Url(it.type, it.url) }
+)
+
+fun ApiCreator.asCreator(): Creator = Creator(
+    id = id,
+    title = firstName,
+    description = lastName,
+    thumbnail = thumbnail.asString(),
+    references = listOf(
+        comics.toDomain(ReferenceList.Type.CHARACTER),
+        events.toDomain(ReferenceList.Type.EVENT),
+        series.toDomain(ReferenceList.Type.SERIES),
+        stories.toDomain(ReferenceList.Type.STORY)
+    ),
+    urls = urls.map { Url(it.type, it.url) }
 )
 
 private fun String.toDomain(): Comic.Format = when (this) {

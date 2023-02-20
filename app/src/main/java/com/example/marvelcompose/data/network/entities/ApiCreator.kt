@@ -15,4 +15,6 @@ data class ApiCreator(
     val thumbnail: ApiThumbnail,
     val urls: List<ApiUrl>,
     val resourceURI: String
-)
+) {
+
+}
