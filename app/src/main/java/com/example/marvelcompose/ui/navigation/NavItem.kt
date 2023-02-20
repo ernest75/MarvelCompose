@@ -16,7 +16,8 @@ enum class NavItem(
 ) {
     CHARACTERS(NavCommand.ContentType(Feature.CHARACTERS), Icons.Default.Face, R.string.characters),
     COMICS(NavCommand.ContentType(Feature.COMICS), Icons.Default.Book, R.string.comics),
-    EVENTS(NavCommand.ContentType(Feature.EVENTS), Icons.Default.Event, R.string.events)
+    EVENTS(NavCommand.ContentType(Feature.EVENTS), Icons.Default.Event, R.string.events),
+    CREATORS(NavCommand.ContentType(Feature.CREATORS), Icons.Default.Copyright, R.string.creators )
 }
 
 sealed class NavCommand(

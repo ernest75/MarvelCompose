@@ -6,4 +6,5 @@ enum class Feature(val route: String) {
     EVENTS("events"),
     COMICS("comics"),
     STORIES ("stories"),
+    CREATORS("creators")
 }

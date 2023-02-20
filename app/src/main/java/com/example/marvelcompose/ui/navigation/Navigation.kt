@@ -23,6 +23,7 @@ fun Navigation(navController: NavHostController) {
         charactersNav(navController)
         comicsNav(navController)
         eventsNav(navController)
+        creatorsNav(navController)
     }
 }
 
@@ -90,6 +91,28 @@ private fun NavGraphBuilder.eventsNav(navController: NavHostController) {
         composable(NavCommand.ContentTypeDetail(Feature.EVENTS)) {
             EventDetailScreen(
                 eventId = it.findArg(NavArg.ItemId),
+                onUpClick = { navController.popBackStack() })
+        }
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class, ExperimentalCoilApi::class)
+private fun NavGraphBuilder.creatorsNav(navController: NavHostController) {
+    navigation(
+        startDestination = NavCommand.ContentType(Feature.CREATORS).route,
+        route = Feature.CREATORS.route
+    ) {
+        composable(NavCommand.ContentType(Feature.CREATORS)) {
+            CreatorsScreen(onClick = { event ->
+                navController.navigate(
+                    NavCommand.ContentTypeDetail(Feature.CREATORS).createRoute(event.id)
+                )
+            })
+        }
+
+        composable(NavCommand.ContentTypeDetail(Feature.CREATORS)) {
+            CreatorDetailScreen(
+                creatorId = it.findArg(NavArg.ItemId),
                 onUpClick = { navController.popBackStack() })
         }
     }
