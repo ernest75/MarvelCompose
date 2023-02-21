@@ -34,8 +34,7 @@ fun MarvelItemDetailScreen(
     onUpClick: () -> Unit
 ) {
     MarvelItemDetailScaffold(
-        marvelItem = marvelItem,
-        onUpClick = onUpClick
+        marvelItem = marvelItem
     ) { padding ->
         LazyColumn(
             modifier = Modifier

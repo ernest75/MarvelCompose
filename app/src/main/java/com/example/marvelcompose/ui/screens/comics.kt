@@ -31,23 +31,13 @@ fun ComicsScreen(onClick: (Comic) -> Unit) {
     }
 
     val formats = Comic.Format.values()
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.app_name)) }
-            )
-        }
-    ) { padding ->
-        HorizontalPager(
-            count = formats.size,
-            modifier = Modifier.padding(padding)
-        ) {
-            MarvelItemsList(
-                items = comicsState,
-                onClick = onClick,
-                Modifier.padding(padding)
-            )
-        }
+    HorizontalPager(
+        count = formats.size
+    ) {
+        MarvelItemsList(
+            items = comicsState,
+            onClick = onClick
+        )
     }
 }
 

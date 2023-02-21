@@ -22,19 +22,10 @@ import com.example.marvelcompose.data.entities.MarvelItem
 @ExperimentalFoundationApi
 @Composable
 fun <T : MarvelItem> MarvelItemsListScreen(items: List<T>, onClick: (T) -> Unit) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.app_name)) }
-            )
-        }
-    ) { padding ->
         MarvelItemsList(
             items = items,
-            onClick = onClick,
-            Modifier.padding(padding)
+            onClick = onClick
         )
-    }
 }
 
 @ExperimentalCoilApi
