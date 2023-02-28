@@ -6,15 +6,15 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavHostController
 
 @Composable
 fun AppBottomNavigation(
+    bottomNavOptions: List<NavItem>,
     currentRoute: String,
     onNavItemClick: (NavItem) -> Unit
 ) {
     BottomNavigation {
-        NavItem.values().forEach { item ->
+        bottomNavOptions.forEach { item ->
             val title = stringResource(id = item.title)
             BottomNavigationItem(
                 selected = currentRoute.contains(item.navCommand.feature.route),

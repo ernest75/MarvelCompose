@@ -1,16 +1,24 @@
 package com.example.marvelcompose.ui.navigation
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import coil.annotation.ExperimentalCoilApi
+import com.example.marvelcompose.R
 import com.example.marvelcompose.ui.screens.*
 
 
@@ -23,6 +31,13 @@ fun Navigation(navController: NavHostController) {
         charactersNav(navController)
         comicsNav(navController)
         eventsNav(navController)
+        composable(NavCommand.ContentType(Feature.SETTINGS)) {
+            Box(
+                modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
+            ) {
+                Text(text = stringResource(id = R.string.settings), style = MaterialTheme.typography.h3)
+            }
+        }
     }
 }
 

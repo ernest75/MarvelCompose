@@ -14,6 +14,9 @@ enum class NavItem(
     val icon: ImageVector,
     @StringRes val title: Int
 ) {
+    HOME(NavCommand.ContentType(Feature.CHARACTERS), Icons.Default.Home, R.string.home),
+    SETTINGS(NavCommand.ContentType(Feature.SETTINGS), Icons.Default.Settings, R.string.settings),
+
     CHARACTERS(NavCommand.ContentType(Feature.CHARACTERS), Icons.Default.Face, R.string.characters),
     COMICS(NavCommand.ContentType(Feature.COMICS), Icons.Default.Book, R.string.comics),
     EVENTS(NavCommand.ContentType(Feature.EVENTS), Icons.Default.Event, R.string.events)
