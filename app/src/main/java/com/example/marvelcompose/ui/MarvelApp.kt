@@ -29,7 +29,7 @@ fun MarvelApp() {
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val drawerOptions = listOf(NavItem.HOME, NavItem.SETTINGS)
-    val bottomNavOptions = listOf(NavItem.CHARACTERS, NavItem.COMICS, NavItem.EVENTS)
+    val bottomNavOptions = listOf(NavItem.CHARACTERS, NavItem.COMICS, NavItem.EVENTS, NavItem.CREATORS)
 
     val showBottomNavigation = bottomNavOptions.any { currentRoute.contains(it.navCommand.feature.route)}
     val drawerSelectedIndex = if (showBottomNavigation) {
