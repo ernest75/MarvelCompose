@@ -40,6 +40,7 @@ fun ComicsScreen(onClick: (Comic) -> Unit) {
             state = pagerState
         ) {
             MarvelItemsList(
+                loading = false,
                 items = comicsState,
                 onClick = onClick
             )
