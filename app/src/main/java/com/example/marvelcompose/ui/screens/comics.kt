@@ -41,7 +41,8 @@ fun ComicsScreen(onClick: (Comic) -> Unit) {
         ) {
             MarvelItemsList(
                 items = comicsState,
-                onClick = onClick
+                onClick = onClick,
+                loading = false
             )
         }
     }
