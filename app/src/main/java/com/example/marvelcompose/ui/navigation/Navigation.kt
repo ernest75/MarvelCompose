@@ -58,7 +58,6 @@ private fun NavGraphBuilder.charactersNav(navController: NavHostController) {
 
         composable(NavCommand.ContentTypeDetail(Feature.CHARACTERS)) {
             CharacterDetailScreen(
-                characterId = it.findArg<Int>(NavArg.ItemId),
                 onUpClick = { navController.popBackStack() })
         }
     }

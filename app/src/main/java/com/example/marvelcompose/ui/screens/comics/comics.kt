@@ -99,6 +99,6 @@ fun ComicDetailScreen(comicId: Int, onUpClick: () -> Unit) {
         comicState = ComicsRepository.find(comicId)
     }
     comicState?.let {
-        MarvelItemDetailScreen(it, onUpClick)
+        MarvelItemDetailScreen(marvelItem = it, onUpClick = onUpClick)
     }
 }
