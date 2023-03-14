@@ -29,7 +29,7 @@ class MarvelAppState(
 ) {
     companion object {
         val DRAWER_OPTIONS = listOf(NavItem.HOME, NavItem.SETTINGS)
-        val BOTTOM_NAV_OPTIONS = listOf(NavItem.CHARACTERS, NavItem.COMICS, NavItem.EVENTS)
+        val BOTTOM_NAV_OPTIONS = listOf(NavItem.CHARACTERS, NavItem.COMICS, NavItem.EVENTS, NavItem.CREATORS)
     }
 
     val currentRoute: String

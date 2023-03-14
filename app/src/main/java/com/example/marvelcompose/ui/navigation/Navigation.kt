@@ -18,6 +18,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import coil.annotation.ExperimentalCoilApi
 import com.example.marvelcompose.R
+import com.example.marvelcompose.ui.screens.creators.CreatorDetailScreen
+import com.example.marvelcompose.ui.screens.creators.CreatorsScreen
 import com.example.marvelcompose.ui.screens.characters.CharacterDetailScreen
 import com.example.marvelcompose.ui.screens.characters.CharactersScreen
 import com.example.marvelcompose.ui.screens.comics.ComicDetailScreen
@@ -128,7 +130,6 @@ private fun NavGraphBuilder.creatorsNav(navController: NavHostController) {
 
         composable(NavCommand.ContentTypeDetail(Feature.CREATORS)) {
             CreatorDetailScreen(
-                creatorId = it.findArg(NavArg.ItemId),
                 onUpClick = { navController.popBackStack() })
         }
     }
