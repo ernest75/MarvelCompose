@@ -1,4 +1,4 @@
-package com.example.marvelcompose.ui.screens.characters
+package com.example.marvelcompose.ui.screens.comics
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -6,13 +6,12 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavBackStackEntry
-import com.example.marvelcompose.data.entities.Character
-import com.example.marvelcompose.data.repositories.CharactersRepository
+import com.example.marvelcompose.data.entities.Comic
+import com.example.marvelcompose.data.repositories.ComicsRepository
 import com.example.marvelcompose.ui.navigation.NavArg
 import kotlinx.coroutines.launch
 
-class CharacterDetailViewModel(stateSavedStateHandle: SavedStateHandle): ViewModel() {
+class ComicDetailViewModel(stateSavedStateHandle: SavedStateHandle): ViewModel() {
 
     private val id = stateSavedStateHandle.get<Int>(NavArg.ItemId.key) ?: 0
 
@@ -22,12 +21,12 @@ class CharacterDetailViewModel(stateSavedStateHandle: SavedStateHandle): ViewMod
     init {
         viewModelScope.launch {
             state = UiState(loading = true)
-            state = UiState(character = CharactersRepository.find(id))
+            state = UiState(comic = ComicsRepository.find(id))
         }
     }
 
     data class UiState(
         var loading: Boolean = false,
-        var character: Character? = null
+        var comic: Comic? = null
     )
 }
