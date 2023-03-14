@@ -30,25 +30,33 @@ import com.example.marvelcompose.data.entities.ReferenceList
 @ExperimentalMaterialApi
 @Composable
 fun MarvelItemDetailScreen(
-    marvelItem: MarvelItem,
+    loading: Boolean = false,
+    marvelItem: MarvelItem?,
     onUpClick: () -> Unit
 ) {
-    MarvelItemDetailScaffold(
-        marvelItem = marvelItem
-    ) { padding ->
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(padding)
-        ) {
-            item {
-                Header(marvelItem = marvelItem)
-            }
-            marvelItem.references.forEach {
-                val (icon, @StringRes stringRes) = it.type.createUiData()
-                section(icon, stringRes, it.references)
+    if (loading) {
+        CircularProgressIndicator()
+    }
+
+    if (marvelItem != null) {
+        MarvelItemDetailScaffold(
+            marvelItem = marvelItem
+        ) { padding ->
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(padding)
+            ) {
+                item {
+                    Header(marvelItem = marvelItem)
+                }
+                marvelItem.references.forEach {
+                    val (icon, @StringRes stringRes) = it.type.createUiData()
+                    section(icon, stringRes, it.references)
+                }
             }
         }
+
     }
 }
 
