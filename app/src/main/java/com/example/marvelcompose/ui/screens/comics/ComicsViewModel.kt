@@ -1,16 +1,15 @@
 package com.example.marvelcompose.ui.screens.comics
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.marvelcompose.data.entities.Comic
 import com.example.marvelcompose.data.repositories.ComicsRepository
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class ComicsViewModel : ViewModel() {
 
-    val state = Comic.Format.values().associate { it to mutableStateOf(UiState()) }
+    val state = Comic.Format.values().associate { it to MutableStateFlow(UiState()) }
 
     data class UiState(
         val loading: Boolean = false,
