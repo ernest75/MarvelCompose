@@ -36,7 +36,7 @@ fun ComicsScreen(onClick: (Comic) -> Unit, viewModel: ComicsViewModel = viewMode
         ) { page->
             val format = formats[page]
             viewModel.formatRequested(format)
-            val pageState = viewModel.state.getValue(format).value
+            val pageState by viewModel.state.getValue(format).collectAsState()
             MarvelItemsList(
                 items = pageState.items,
                 onClick = onClick,
