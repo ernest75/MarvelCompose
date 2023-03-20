@@ -7,16 +7,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.marvelcompose.data.entities.Creator
 import com.example.marvelcompose.data.repositories.CreatorsRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class CreatorsViewModel: ViewModel() {
-    var state by mutableStateOf(UiState())
-        private set
+    private val _state =  MutableStateFlow(UiState())
+    val state  =_state.asStateFlow()
 
     init {
         viewModelScope.launch {
-            state = UiState(loading = true)
-            state = UiState(items = CreatorsRepository.get())
+            _state.value = UiState(loading = true)
+            _state.value = UiState(items = CreatorsRepository.get())
         }
     }
 

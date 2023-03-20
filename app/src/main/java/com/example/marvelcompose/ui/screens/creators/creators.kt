@@ -15,9 +15,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @ExperimentalFoundationApi
 @Composable
 fun CreatorsScreen(onClick: (Creator) -> Unit, viewModel: CreatorsViewModel = viewModel()) {
+    val state by viewModel.state.collectAsState()
     MarvelItemsListScreen(
-        loading = viewModel.state.loading,
-        items = viewModel.state.items,
+        loading = state.loading,
+        items = state.items,
         onClick = onClick
     )
 }
@@ -26,9 +27,10 @@ fun CreatorsScreen(onClick: (Creator) -> Unit, viewModel: CreatorsViewModel = vi
 @ExperimentalMaterialApi
 @Composable
 fun CreatorDetailScreen(viewModel: CreatorsDetailViewModel = viewModel(), onUpClick: () -> Unit) {
+    val state by viewModel.state.collectAsState()
     MarvelItemDetailScreen(
-        loading = viewModel.state.loading,
-        marvelItem = viewModel.state.creator,
+        loading = state.loading,
+        marvelItem = state.creator,
         onUpClick
     )
 }
