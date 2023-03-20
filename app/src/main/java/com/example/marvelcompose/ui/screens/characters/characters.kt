@@ -1,5 +1,6 @@
 package com.example.marvelcompose.ui.screens.characters
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
@@ -27,11 +28,14 @@ fun CharactersScreen(onClick: (Character) -> Unit, viewModel: CharactersViewMode
 @ExperimentalCoilApi
 @ExperimentalMaterialApi
 @Composable
-fun CharacterDetailScreen(viewModel: CharacterDetailViewModel = viewModel(), onUpClick: () -> Unit) {
-        MarvelItemDetailScreen(
-            loading = viewModel.state.loading,
-            marvelItem = viewModel.state.character,
-            onUpClick
-        )
-
+fun CharacterDetailScreen(
+    viewModel: CharacterDetailViewModel = viewModel(),
+    onUpClick: () -> Unit
+) {
+    val state by viewModel.state.collectAsState()
+    MarvelItemDetailScreen(
+        loading = state.loading,
+        marvelItem = state.character,
+        onUpClick
+    )
 }

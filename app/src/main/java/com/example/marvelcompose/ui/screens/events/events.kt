@@ -6,7 +6,6 @@ import androidx.compose.runtime.*
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.annotation.ExperimentalCoilApi
 import com.example.marvelcompose.data.entities.Event
-import com.example.marvelcompose.data.repositories.EventsRepository
 import com.example.marvelcompose.ui.screens.common.MarvelItemDetailScreen
 import com.example.marvelcompose.ui.screens.common.MarvelItemsListScreen
 
@@ -14,9 +13,10 @@ import com.example.marvelcompose.ui.screens.common.MarvelItemsListScreen
 @ExperimentalFoundationApi
 @Composable
 fun EventsScreen(onClick: (Event) -> Unit, viewModel: EventsViewModel = viewModel()) {
+    val state by viewModel.state.collectAsState()
     MarvelItemsListScreen(
-        loading = viewModel.state.loading,
-        items = viewModel.state.items,
+        loading = state.loading,
+        items = state.items,
         onClick = onClick
     )
 }
@@ -25,9 +25,10 @@ fun EventsScreen(onClick: (Event) -> Unit, viewModel: EventsViewModel = viewMode
 @ExperimentalMaterialApi
 @Composable
 fun EventDetailScreen(viewModel: EventsDetailViewModel = viewModel(), onUpClick: () -> Unit) {
+    val state by viewModel.state.collectAsState()
     MarvelItemDetailScreen(
-        loading = viewModel.state.loading,
-        marvelItem = viewModel.state.event,
+        loading = state.loading,
+        marvelItem = state.event,
         onUpClick = onUpClick
     )
 }

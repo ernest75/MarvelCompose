@@ -10,19 +10,22 @@ import androidx.navigation.NavBackStackEntry
 import com.example.marvelcompose.data.entities.Character
 import com.example.marvelcompose.data.repositories.CharactersRepository
 import com.example.marvelcompose.ui.navigation.NavArg
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class CharacterDetailViewModel(stateSavedStateHandle: SavedStateHandle): ViewModel() {
 
     private val id = stateSavedStateHandle.get<Int>(NavArg.ItemId.key) ?: 0
 
-    var state by mutableStateOf(UiState())
-    private set
+    private val _state = MutableStateFlow(UiState())
+    val state: StateFlow<UiState> = _state.asStateFlow()
 
     init {
         viewModelScope.launch {
-            state = UiState(loading = true)
-            state = UiState(character = CharactersRepository.find(id))
+            _state.value = UiState(loading = true)
+            _state.value = UiState(character = CharactersRepository.find(id))
         }
     }
 
