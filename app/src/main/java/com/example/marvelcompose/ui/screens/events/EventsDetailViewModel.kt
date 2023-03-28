@@ -6,7 +6,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import arrow.core.Either
 import com.example.marvelcompose.data.entities.Event
+import com.example.marvelcompose.data.entities.Result
 import com.example.marvelcompose.data.repositories.EventsRepository
 import com.example.marvelcompose.ui.navigation.NavArg
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,6 +31,6 @@ class EventsDetailViewModel(stateSavedStateHandle: SavedStateHandle): ViewModel(
 
     data class UiState(
         var loading: Boolean = false,
-        var event: Event? = null
+        var event: Result<Event?> = Either.Right(null)
     )
 }
