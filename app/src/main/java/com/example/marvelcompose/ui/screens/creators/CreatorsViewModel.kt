@@ -1,11 +1,10 @@
 package com.example.marvelcompose.ui.screens.creators
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import arrow.core.right
 import com.example.marvelcompose.data.entities.Creator
+import com.example.marvelcompose.data.entities.Result
 import com.example.marvelcompose.data.repositories.CreatorsRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,6 +23,6 @@ class CreatorsViewModel: ViewModel() {
 
     data class UiState(
         val loading: Boolean = false,
-        val items: List<Creator> = emptyList()
+        val items: Result<List<Creator>> = emptyList<Creator>().right()
     )
 }

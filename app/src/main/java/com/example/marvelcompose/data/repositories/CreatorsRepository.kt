@@ -1,11 +1,12 @@
 package com.example.marvelcompose.data.repositories
 
 import com.example.marvelcompose.data.entities.Creator
+import com.example.marvelcompose.data.entities.Result
 import com.example.marvelcompose.data.network.ApiClient
 
 object CreatorsRepository: Repository<Creator>() {
 
-    suspend fun get(): List<Creator> = super.get {
+    suspend fun get(): Result<List<Creator>> = super.get {
         ApiClient
             .creatorsService
             .getCreators(0, 100)
@@ -14,7 +15,7 @@ object CreatorsRepository: Repository<Creator>() {
             .map { it.asCreator() }
     }
 
-    suspend fun find(id: Int): Creator = super.find(
+    suspend fun find(id: Int): Result<Creator> = super.find(
         id,
         findActionRemote = {
             ApiClient
