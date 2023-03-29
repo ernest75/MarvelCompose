@@ -7,7 +7,10 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavBackStackEntry
+import arrow.core.Either
+import arrow.core.right
 import com.example.marvelcompose.data.entities.Character
+import com.example.marvelcompose.data.entities.Result
 import com.example.marvelcompose.data.repositories.CharactersRepository
 import com.example.marvelcompose.ui.navigation.NavArg
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,6 +34,6 @@ class CharacterDetailViewModel(stateSavedStateHandle: SavedStateHandle): ViewMod
 
     data class UiState(
         var loading: Boolean = false,
-        var character: Character? = null
+        var character: Result<Character?> = Either.Right(null)
     )
 }
