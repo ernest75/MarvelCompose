@@ -2,6 +2,7 @@ package com.example.marvelcompose.ui.screens.comics
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import arrow.core.Either
 import arrow.core.right
 import com.example.marvelcompose.data.entities.Comic
 import com.example.marvelcompose.data.entities.Result
@@ -15,11 +16,12 @@ class ComicsViewModel : ViewModel() {
 
     fun formatRequested(format: Comic.Format) {
         val uiState = state.getValue(format)
-        if (uiState.value.comics.isNotEmpty()) return
-
-        viewModelScope.launch {
-            uiState.value = UiState(loading = true)
-            uiState.value = UiState(comics = ComicsRepository.get(format))
+        val comics = uiState.value.comics
+        if (comics is Either.Right && comics.value.isEmpty()) {
+            viewModelScope.launch {
+                uiState.value = UiState(loading = true)
+                uiState.value = UiState(comics = ComicsRepository.get(format))
+            }
         }
     }
 
