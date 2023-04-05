@@ -18,6 +18,7 @@ import com.example.marvelcompose.data.entities.Error
 import com.example.marvelcompose.ui.screens.common.ErrorMessage
 import com.example.marvelcompose.ui.screens.common.MarvelItemDetailScreen
 import com.example.marvelcompose.ui.screens.common.MarvelItemsList
+import com.example.marvelcompose.ui.screens.common.MarvelItemsListScreen
 import com.google.accompanist.pager.*
 import kotlinx.coroutines.launch
 
@@ -31,21 +32,22 @@ fun ComicsScreen(onClick: (Comic) -> Unit, viewModel: ComicsViewModel = viewMode
     val pagerState = rememberPagerState()
 
     Column {
-        ComicFormatsTabRow(pagerState, formats)
+        ComicFormatsTabRow(
+            pagerState = pagerState,
+            formats = formats
+        )
         HorizontalPager(
             count = formats.size,
             state = pagerState
-        ) { page->
+        ) { page ->
             val format = formats[page]
             viewModel.formatRequested(format)
             val pageState by viewModel.state.getValue(format).collectAsState()
-            pageState.comics.fold({ ErrorMessage(error = it) }){
-                MarvelItemsList(
-                    items = it,
-                    onClick = onClick,
-                    loading = pageState.loading
-                )
-            }
+            MarvelItemsListScreen(
+                loading = pageState.loading,
+                items = pageState.comics,
+                onClick = onClick
+            )
         }
     }
 }
