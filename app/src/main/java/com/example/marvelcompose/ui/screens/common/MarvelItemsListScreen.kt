@@ -39,12 +39,16 @@ fun <T : MarvelItem> MarvelItemsListScreen(
         val backDispatcher =
             requireNotNull(LocalOnBackPressedDispatcherOwner.current).onBackPressedDispatcher
 
-        LaunchedEffect(lifecycleOwner, backDispatcher) {
-            backDispatcher.addCallback(lifecycleOwner, object : OnBackPressedCallback(true) {
+        val backCallback = remember {
+            object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     scope.launch { sheetState.hide() }
                 }
-            })
+            }
+        }
+        DisposableEffect(lifecycleOwner, backDispatcher) {
+            backDispatcher.addCallback(lifecycleOwner, backCallback)
+            onDispose { backCallback.remove() }
         }
 
         ModalBottomSheetLayout(
