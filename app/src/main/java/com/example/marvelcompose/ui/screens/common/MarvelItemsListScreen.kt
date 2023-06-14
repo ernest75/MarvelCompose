@@ -1,6 +1,7 @@
 package com.example.marvelcompose.ui.screens.common
 
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
@@ -35,20 +36,8 @@ fun <T : MarvelItem> MarvelItemsListScreen(
         val sheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
         val scope = rememberCoroutineScope()
 
-        val lifecycleOwner = LocalLifecycleOwner.current
-        val backDispatcher =
-            requireNotNull(LocalOnBackPressedDispatcherOwner.current).onBackPressedDispatcher
-
-        val backCallback = remember {
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    scope.launch { sheetState.hide() }
-                }
-            }
-        }
-        DisposableEffect(lifecycleOwner, backDispatcher) {
-            backDispatcher.addCallback(lifecycleOwner, backCallback)
-            onDispose { backCallback.remove() }
+        BackHandler(sheetState.isVisible) {
+            scope.launch { sheetState.hide() }
         }
 
         ModalBottomSheetLayout(
