@@ -27,7 +27,7 @@ fun AppBottomNavigation(
                         contentDescription = title
                     )
                 },
-                label = { Text(text = title) }
+                label = { Text(text = title, maxLines = 1) }
             )
         }
     }
