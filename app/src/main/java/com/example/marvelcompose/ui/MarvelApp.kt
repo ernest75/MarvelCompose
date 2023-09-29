@@ -8,9 +8,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -20,6 +22,9 @@ import com.example.marvelcompose.R
 import com.example.marvelcompose.ui.MarvelAppState.Companion.BOTTOM_NAV_OPTIONS
 import com.example.marvelcompose.ui.MarvelAppState.Companion.DRAWER_OPTIONS
 import com.example.marvelcompose.ui.navigation.*
+import com.example.marvelcompose.ui.theme.RedDark
+import com.google.accompanist.systemuicontroller.SystemUiController
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import kotlinx.coroutines.launch
 
 @Composable
@@ -72,6 +77,17 @@ fun MarvelApp() {
                 Navigation(appState.navController)
             }
         }
+        SetStatusBarColorEffect()
+    }
+}
+
+@Composable
+fun SetStatusBarColorEffect(
+    color: Color =  MaterialTheme.colors.primaryVariant,
+    systemUiController: SystemUiController = rememberSystemUiController()
+){
+    SideEffect {
+        systemUiController.setSystemBarsColor(color = color)
     }
 }
 
