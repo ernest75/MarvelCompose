@@ -3,12 +3,12 @@ package com.example.marvelcompose.data.repositories
 import com.example.marvelcompose.data.entities.Creator
 import com.example.marvelcompose.data.entities.Result
 import com.example.marvelcompose.data.network.ApiClient
+import com.example.marvelcompose.data.network.CreatorsService
 
-object CreatorsRepository: Repository<Creator>() {
+class CreatorsRepository(private val service: CreatorsService) : Repository<Creator>() {
 
     suspend fun get(): Result<List<Creator>> = super.get {
-        ApiClient
-            .creatorsService
+        service
             .getCreators(0, 100)
             .data
             .results
@@ -18,8 +18,7 @@ object CreatorsRepository: Repository<Creator>() {
     suspend fun find(id: Int): Result<Creator> = super.find(
         id,
         findActionRemote = {
-            ApiClient
-                .creatorsService
+            service
                 .findCreator(id)
                 .data
                 .results

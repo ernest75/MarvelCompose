@@ -4,13 +4,13 @@ import com.example.marvelcompose.data.entities.Comic
 import com.example.marvelcompose.data.entities.Result
 import com.example.marvelcompose.data.entities.tryCall
 import com.example.marvelcompose.data.network.ApiClient
+import com.example.marvelcompose.data.network.ComicsService
 
 
-object ComicsRepository {
+class ComicsRepository(private val service: ComicsService) {
 
     suspend fun get(format: Comic.Format): Result<List<Comic>> = tryCall {
-        ApiClient
-            .comicsService
+        service
             .getComics(0, 20, format.toStringFormat())
             .data
             .results
@@ -19,8 +19,7 @@ object ComicsRepository {
 
 
     suspend fun find(id: Int): Result<Comic> = tryCall {
-        ApiClient
-            .comicsService
+        service
             .findComic(id)
             .data
             .results

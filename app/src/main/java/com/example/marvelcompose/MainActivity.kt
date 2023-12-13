@@ -8,7 +8,9 @@ import androidx.compose.runtime.Composable
 import com.example.marvelcompose.ui.MarvelApp
 import com.example.marvelcompose.ui.MarvelScreen
 import com.example.marvelcompose.ui.navigation.Navigation
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

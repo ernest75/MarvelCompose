@@ -34,26 +34,3 @@ object ApiClient {
     val eventsService: EventsService = restAdapter.create(EventsService::class.java)
     val creatorsService: CreatorsService = restAdapter.create(CreatorsService::class.java)
 }
-
-private class QueryInterceptor : Interceptor {
-    override fun intercept(chain: Interceptor.Chain): Response {
-        val original = chain.request()
-        val originalUrl = original.url
-
-        val ts = Date().time
-        val hash = generateHash(ts, BuildConfig.MARVEL_PRIVATE_KEY, BuildConfig.MARVEL_PUBLIC_KEY)
-
-        val url = originalUrl.newBuilder()
-            .addQueryParameter("apikey", BuildConfig.MARVEL_PUBLIC_KEY)
-            .addQueryParameter("ts", ts.toString())
-            .addQueryParameter("hash", hash)
-            .build()
-
-        val request = original.newBuilder()
-            .url(url)
-            .build()
-
-        return chain.proceed(request)
-    }
-
-}
