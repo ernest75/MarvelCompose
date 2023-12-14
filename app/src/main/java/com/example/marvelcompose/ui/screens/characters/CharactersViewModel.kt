@@ -7,12 +7,15 @@ import arrow.core.right
 import com.example.marvelcompose.data.entities.Character
 import com.example.marvelcompose.data.entities.Result
 import com.example.marvelcompose.data.repositories.CharactersRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CharactersViewModel: ViewModel() {
+@HiltViewModel
+class CharactersViewModel @Inject constructor(private val repository: CharactersRepository): ViewModel() {
 
     private val _state = MutableStateFlow(UiState())
     val state: StateFlow<UiState>  = _state.asStateFlow()
@@ -20,7 +23,7 @@ class CharactersViewModel: ViewModel() {
     init {
         viewModelScope.launch {
             _state.value = UiState(loading = true)
-            _state.value = UiState(items = CharactersRepository.get())
+            _state.value = UiState(items = repository.get())
         }
     }
 

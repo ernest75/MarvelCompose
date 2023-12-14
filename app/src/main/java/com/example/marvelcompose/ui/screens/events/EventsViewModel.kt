@@ -9,12 +9,15 @@ import arrow.core.right
 import com.example.marvelcompose.data.entities.Event
 import com.example.marvelcompose.data.entities.Result
 import com.example.marvelcompose.data.repositories.EventsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class EventsViewModel: ViewModel() {
+@HiltViewModel
+class EventsViewModel @Inject constructor(eventsRepository: EventsRepository): ViewModel() {
 
     private val _state =  MutableStateFlow(UiState())
     val state:StateFlow<UiState> = _state.asStateFlow()
@@ -22,7 +25,7 @@ class EventsViewModel: ViewModel() {
     init {
         viewModelScope.launch {
             _state.value = UiState(loading = true)
-            _state.value = UiState(items = EventsRepository.get())
+            _state.value = UiState(items = eventsRepository.get())
         }
     }
 

@@ -2,10 +2,10 @@ package com.example.marvelcompose.data.repositories
 
 import com.example.marvelcompose.data.entities.Creator
 import com.example.marvelcompose.data.entities.Result
-import com.example.marvelcompose.data.network.ApiClient
 import com.example.marvelcompose.data.network.CreatorsService
+import javax.inject.Inject
 
-class CreatorsRepository(private val service: CreatorsService) : Repository<Creator>() {
+class CreatorsRepository @Inject constructor(private val service: CreatorsService) : Repository<Creator>() {
 
     suspend fun get(): Result<List<Creator>> = super.get {
         service

@@ -3,11 +3,11 @@ package com.example.marvelcompose.data.repositories
 import com.example.marvelcompose.data.entities.Comic
 import com.example.marvelcompose.data.entities.Result
 import com.example.marvelcompose.data.entities.tryCall
-import com.example.marvelcompose.data.network.ApiClient
 import com.example.marvelcompose.data.network.ComicsService
+import javax.inject.Inject
 
 
-class ComicsRepository(private val service: ComicsService) {
+class ComicsRepository @Inject constructor(private val service: ComicsService) {
 
     suspend fun get(format: Comic.Format): Result<List<Comic>> = tryCall {
         service

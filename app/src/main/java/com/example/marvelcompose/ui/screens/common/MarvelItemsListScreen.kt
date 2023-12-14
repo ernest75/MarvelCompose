@@ -8,8 +8,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -87,7 +88,7 @@ fun <T : MarvelItem> MarvelItemsList(
         }
         if (items.isNotEmpty()) {
             LazyVerticalGrid(
-                cells = GridCells.Adaptive(180.dp),
+                columns = GridCells.Adaptive(180.dp),
                 contentPadding = PaddingValues(4.dp)
             ) {
                 items(items) {
