@@ -3,6 +3,7 @@ package com.example.marvelcompose.ui.screens.creators
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.*
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
 import com.example.marvelcompose.data.entities.Creator
 import com.example.marvelcompose.data.repositories.CreatorsRepository
@@ -14,7 +15,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @ExperimentalCoilApi
 @ExperimentalFoundationApi
 @Composable
-fun CreatorsScreen(onClick: (Creator) -> Unit, viewModel: CreatorsViewModel = viewModel()) {
+fun CreatorsScreen(onClick: (Creator) -> Unit, viewModel: CreatorsViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsState()
     MarvelItemsListScreen(
         loading = state.loading,
@@ -26,7 +27,7 @@ fun CreatorsScreen(onClick: (Creator) -> Unit, viewModel: CreatorsViewModel = vi
 @ExperimentalCoilApi
 @ExperimentalMaterialApi
 @Composable
-fun CreatorDetailScreen(viewModel: CreatorsDetailViewModel = viewModel(), onUpClick: () -> Unit) {
+fun CreatorDetailScreen(viewModel: CreatorsDetailViewModel = hiltViewModel(), onUpClick: () -> Unit) {
     val state by viewModel.state.collectAsState()
     MarvelItemDetailScreen(
         loading = state.loading,
