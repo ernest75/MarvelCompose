@@ -1,21 +1,21 @@
 package com.example.marvelcompose.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
-private val DarkColorPalette = darkColors(
+private val DarkColorPalette = darkColorScheme(
     primary = Red,
-    primaryVariant = RedDark,
-    secondary = Blue
+    secondary = RedDark,
+    tertiary = Blue
 )
 
-private val LightColorPalette = lightColors(
+private val LightColorPalette = lightColorScheme(
     primary = Red,
-    primaryVariant = RedDark,
-    secondary = Blue
+    secondary = RedDark,
+    tertiary = Blue
 
     /* Other default colors to override
     background = Color.White,
@@ -39,7 +39,7 @@ fun MarvelComposeTheme(
     }
 
     MaterialTheme(
-        colors = colors,
+        colorScheme = colors,
         typography = Typography,
         shapes = Shapes,
         content = content
