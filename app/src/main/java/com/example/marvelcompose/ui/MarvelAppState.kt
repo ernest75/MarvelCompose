@@ -1,7 +1,9 @@
 package com.example.marvelcompose.ui
 
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material.ScaffoldState
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -15,15 +17,15 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun rememberMarvelAppState(
-    scaffoldState: ScaffoldState = rememberScaffoldState(),
+    drawerState: DrawerState = rememberDrawerState(initialValue = DrawerValue.Closed),
     navController: NavHostController = rememberNavController(),
     coroutineScope: CoroutineScope = rememberCoroutineScope()
-): MarvelAppState = remember(scaffoldState, navController, coroutineScope) {
-    MarvelAppState(scaffoldState, navController, coroutineScope)
+): MarvelAppState = remember(drawerState, navController, coroutineScope) {
+    MarvelAppState(drawerState, navController, coroutineScope)
 }
 
 class MarvelAppState(
-    val scaffoldState: ScaffoldState,
+    val drawerState: DrawerState,
     val navController: NavHostController,
     val coroutineScope: CoroutineScope
 ) {
@@ -53,7 +55,7 @@ class MarvelAppState(
     }
 
     fun onMenuClick() {
-        coroutineScope.launch { scaffoldState.drawerState.open() }
+        coroutineScope.launch { drawerState.open() }
     }
 
     fun onNavItemClick(navItem: NavItem) {
@@ -63,7 +65,7 @@ class MarvelAppState(
     }
 
     fun onOptionDrawerClick(navItem: NavItem) {
-        coroutineScope.launch { scaffoldState.drawerState.close() }
+        coroutineScope.launch { drawerState.close() }
         navController.navigate(navItem.navCommand.route)
     }
 }

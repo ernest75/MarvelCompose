@@ -1,16 +1,12 @@
 package com.example.marvelcompose.ui.screens.common
 
-import com.example.marvelcompose.data.entities.MarvelItem
-import com.example.marvelcompose.data.entities.Url
-import com.example.marvelcompose.ui.navigation.ArrowBackIcon
-import com.example.marvelcompose.ui.screens.characterdetail.AppBarIcon
 import android.content.Context
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.BottomAppBar
-import androidx.compose.material.FabPosition
-import androidx.compose.material.Scaffold
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Menu
@@ -21,6 +17,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.app.ShareCompat
+import com.example.marvelcompose.data.entities.MarvelItem
+import com.example.marvelcompose.data.entities.Url
+import com.example.marvelcompose.ui.screens.characterdetail.AppBarIcon
 
 
 @Composable
@@ -38,17 +37,6 @@ fun MarvelItemDetailScaffold(
                 ) {
                     Icon(imageVector = Icons.Default.Share, contentDescription = null)
                 }
-            }
-        },
-        floatingActionButtonPosition = FabPosition.Center,
-        isFloatingActionButtonDocked = true,
-        bottomBar = {
-            BottomAppBar(
-                cutoutShape = CircleShape
-            ) {
-                AppBarIcon(imageVector = Icons.Default.Menu, onClick = { }, contentDescription = "menu")
-                Spacer(modifier = Modifier.weight(1f))
-                AppBarIcon(imageVector = Icons.Default.Favorite, onClick = { }, contentDescription = "favourite")
             }
         },
         content = content
