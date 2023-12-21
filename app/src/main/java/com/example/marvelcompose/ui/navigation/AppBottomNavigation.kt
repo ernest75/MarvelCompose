@@ -4,6 +4,8 @@ import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 
@@ -13,10 +15,10 @@ fun AppBottomNavigation(
     currentRoute: String,
     onNavItemClick: (NavItem) -> Unit
 ) {
-    BottomNavigation {
+    NavigationBar {
         bottomNavOptions.forEach { item ->
             val title = stringResource(id = item.title)
-            BottomNavigationItem(
+            NavigationBarItem(
                 selected = currentRoute.contains(item.navCommand.feature.route),
                 onClick = {
                    onNavItemClick(item)
