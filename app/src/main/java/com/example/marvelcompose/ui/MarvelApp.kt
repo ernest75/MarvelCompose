@@ -14,6 +14,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
@@ -24,14 +26,16 @@ import com.example.marvelcompose.ui.MarvelAppState.Companion.BOTTOM_NAV_OPTIONS
 import com.example.marvelcompose.ui.MarvelAppState.Companion.DRAWER_OPTIONS
 import com.example.marvelcompose.ui.navigation.*
 import com.example.marvelcompose.ui.screens.characterdetail.AppBarIcon
+import com.example.marvelcompose.ui.screens.common.MarvelTopAppBar
 import com.example.marvelcompose.ui.theme.MarvelComposeTheme
 import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MarvelApp() {
-    val appState = rememberMarvelAppState()
+fun MarvelApp(appState: MarvelAppState = rememberMarvelAppState()) {
+    val scrollState = rememberTopAppBarState()
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(scrollState)
 
     MarvelScreen {
         ModalNavigationDrawer(
@@ -48,23 +52,21 @@ fun MarvelApp() {
 
             Scaffold(
                 topBar = {
-                    TopAppBar(
+                    MarvelTopAppBar(
                         title = { Text(stringResource(id = R.string.app_name)) },
                         navigationIcon = {
                             if (appState.showUpNavigation) {
                                 AppBarIcon(
                                     imageVector = Icons.Default.ArrowBack,
-                                    onClick = { appState.onUpClick() },
-                                    contentDescription = "navigation"
-                                )
+                                    onClick = { appState.onUpClick() })
                             } else {
                                 AppBarIcon(
                                     imageVector = Icons.Default.Menu,
-                                    onClick = { appState.onMenuClick() },
-                                    contentDescription = "Menu"
+                                    onClick = { appState.onMenuClick() }
                                 )
                             }
-                        }
+                        },
+                        scrollBehavior = scrollBehavior
                     )
                 },
                 bottomBar = {
